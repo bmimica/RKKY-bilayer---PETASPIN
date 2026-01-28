@@ -1,0 +1,7 @@
+//Temperature
+0		!FLAG_TEMP 0, 1(cost), 2(non unif), 3 (cost+ non unif) (int)
+300		!T (K)
+T_file.dat 	!nome file
+1		!num realizzazioni (int)  
+0		!FLAG_SEED 0(il seme e'š il num di real corrente), 1(legge da file)(int)
+seed_file.dat 	!nome file

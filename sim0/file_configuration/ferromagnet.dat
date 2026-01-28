@@ -1,0 +1,85 @@
+//Exchange field
+1						!FLAG_EXCH  0, 1, 2 (int)
+11e-12				!A(J/m) exchange constant 
+exch_file.dat 			!nome del file 
+//DMI field
+0				!FLAG_iDMI  0, 1, 2 (int)
+0.0e-3 				!(J/m^2)i-DMI constant 
+iDMI_file.dat 			!nome del file
+0				!FLAG_bDMI  0, 1, 2 (int)
+0.0e-3 				!(J/m^2)b-DMI constant 
+bDMI_file.dat			!nome del file
+0				!FLAG_2DMI  0, 1, 2 (int)
+0.0e-3 				!(J/m^2)2-DMI constant 
+2DMI_file.dat 			!nome del file  
+0				!FLAG_BC	0, 1, 2, 3, 4, 5, 6, 7 (int)  
+//Saturation magnetization
+2		! FLAG_MS  1, 2 (int)
+7.4e5	 			! Ms_const (A/m)
+MS_file.dat! nome del file 
+1				! FLAG_DAMPING  1, 2 (int)
+1.1				!damping
+damping_file.dat 		!nome del file
+1				!FLAG_GAMA 0 (only2.21e5) (1 cost) (2 letto da file)
+2.21e5				!gama 
+gama_file.dat 			!nome del file
+
+
+
+
+
+
+
+----COMMENT----
+FLAG_EXCH
+0 -->	 Field exchange not computed;
+1 --> Field exchange scalar constant input A value;
+2 --> Field exchange vector constant input from file;
+FLAG_iDMI  
+0 --> Field dmi-interfecial not computed;
+1 --> Field dmi-interfecial scalar constant input i-DMI 	value;
+2 --> Field dmi-interfecial vector constant input from file;
+FLAG_bDMI  
+0 --> Field dmi-bulk not computed;
+1 --> Field dmi-bulk scalar constant input b-DMI value;
+2 --> Field dmi-bulk vector constant input from file;
+FLAG_2DMI  
+0 --> Field dmi-2 not computed;
+1 --> Field dmi-2 scalar constant input 2-DMI value;
+2 --> Field dmi-2vector constant input from file;
+FLAG_BC
+0 --> Boundary condition not computed;
+1 --> Boundary condition computed for DMI-interfecial;
+2 --> Boundary condition computed for DMI- bulk;
+3 --> Boundary condition computed for DMI- 2;
+4 --> Boundary condition OPEN;
+5 --> Boundary condition PERIODIC3;
+6 --> Boundary condition PERIODIC2, for Ncz is BC=0;
+7 --> Boundary condition PERIODIC1, for Ncz and Ncy are BC=0;
+
+The FLAG_iDMI and FLAG_bDMI and FLAG_2DMI can not be active contemporaney
+
+
+FLAG_MS
+1 --> Saturation magnetitation scalar constant input Ms_const 	value(A/m);
+2 --> Saturation magnetitation vector constant from file
+	the value max of Ms in the file must be the same as the 	value in the variable Ms_const;
+FLAG_DAMPING
+1 --> Damping factor scalar constant input damping value;
+2 --> Damping factor vector constant from file; 
+FLAG_GAMA
+1 --> Gyromagnetic ratios scalar constant input gama value;
+2 --> Gyromagnetic ratios vector constant input from file
+	not yet implemented;
+
+
+
+
+----ENDCOMMENT----
+
+
+----NOTE----
+Bisogna testare FLAG_EXCH=0 e FLAG_DMI !=0 (cu_alphadmi= /0) chiedere a Luis la BC quando cu_aplhadmi = 0;
+
+----ENDNOTE----
+

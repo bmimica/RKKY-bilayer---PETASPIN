@@ -1,0 +1,39 @@
+//Configuration file for magnetostatic field
+1			!FLAG_TENSOR
+0 			!Dx
+0 			!Dy
+1 			!Dz
+1 			!FLAG_PADDING
+50  			!Pad_cx
+50  			!Pad_cy
+3			!Pad_cz
+
+
+
+
+----COMMENT----
+FLAG_TENSOR
+0 --> magnetostatic field = 0;
+1 --> Demag Tensor computed in CPU (long double);
+2 --> Demag Tensor computed in GPU (double);
+3 --> THIN-FILM approximation 
+	Hx=-Dx*mx, Hy = - Dy*my, Hz = -Dz*mz
+	the values are computed for each computational cell
+	Ms non uniform is not supported for FLAG_TENSOR = 3;
+FLAG_PADDING
+0 --> Software computation (init());
+1 --> Manual computation 
+	Mcx = Ncx + Pad_cx
+	Mcy = Ncy + Pad_cy
+	Mcz = Ncz + Pad_cz
+
+----ENDCOMMENT----
+
+
+----NOTE----
+Bisogna testare FLAG_TENSOR=0;
+Bisogna testare FLAG_TENSOR=3;
+Per FLAG_TENSOR=2 bisogna riprodurre i problemi standard #4 e #5; 
+Bisogna testare FLAG_TENSOR 1 e 2 con FLAG_PADDING =1 considerando la somma di Mcx, Mcy e Mcz dispari;
+
+----ENDNOTE----

@@ -1,0 +1,58 @@
+//STT_SV conf
+0			!FLAG_STT_SV 0, 1(unif), 2(non unif)(int)
+1.0e6		!J_STT_SV (A/cm2)  
+j_shape_STT_SV.dat 	!nome file (1 col double)
+0	!FLAG_OUT_COUNT
+2			!FLAG_FPOL_STT_SV 
+0.6			!nu (double)
+0.36			!As_p(double) 
+0.0			!q1(double)
+//Polinicial
+1			!FLAG_POL_STT_SV 0, 1 (int), 2 (dynamic polarizer)
+1			!num_lay1 (int)
+3			!num_lay2 (int)
+polinicial_STT_SV.dat 	!nome del file
+1.000		!pa uniform  (double)
+0.0			!pb uniform
+0.0			!pc uniform
+0 			! FLAG_STT_SV_AC 1 si 0 no 2 localizzato
+1.0e8			! jSTT_STT_SV_AC (A/cm2)
+45.37e9	 		!frequency
+0.0e0			! fi 
+j_shape_STT_SV.dat 	!nome file
+0			!FLAG_STT_SV_PULSE 0(no), 1(si)
+2			!njSTT_sv (int)
+jstt_sv_pulse.dat 	!nome file di due colonne
+
+
+
+
+----COMMENT----
+FLAG_STT_SV 
+0 --> Field not is computed;
+1 --> Field scalar constant input J_STT_SV value;
+2 --> Field vector constant input from file;
+
+FLAG_FPOL_STT_SV 
+0 --> SL 1996 
+1 --> SL 2002
+2 --> MTJ only uniform (polarization single, only nu is used)
+3 --> MTJ double polarization
+4 --> nu const
+
+FLAG_OUT_COUNT
+0  --> file output.txt normal
+1  --> file output.txt with more 3 col
+
+FLAG_POL_STT_SV
+0 -->load file 
+1 --> uniform 
+2 --> dynamic polarizer
+
+
+----ENDCOMMENT----
+
+
+----NOTE----
+
+----ENDNOTE---

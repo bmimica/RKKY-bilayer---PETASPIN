@@ -1,0 +1,32 @@
+//RKKY conf
+1			!FLAG_RKKY 0 (no), 1(si unif), 2(si non-unif), 3(multiple-rkky)
+-79.4e-6		!RKKY (J/m2)  
+shape_RKKY.dat 		!nome file 1 col (double)
+1			!layer1(int)
+3			!layer2(int)
+2			!number layers = number rows activated for FLAG_RKKY 3
+RKKY_multiple.dat 	!nome file 3 col ((RKKY_value)double (lay1)int (lay2)int)
+
+
+
+
+
+
+
+
+
+----COMMENT----
+FLAG_RKKY 
+0 --> Field RKKY not computed;
+1 --> Field RKKY scalar constant input RKKY value;
+2 --> Field RKKY vector constant input from file;
+3 --> Field RKKY multiple-rkky is valid only RKKY scalar constant
+	the number of layers is indicated number of times that the 	RKKY interaction should be computed   
+
+----ENDCOMMENT----
+
+
+----NOTE----
+
+
+----ENDNOTE----

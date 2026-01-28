@@ -1,0 +1,30 @@
+//Parameters output
+10000 !num iteration (int)
+100  !interval output (int)
+1000  !interval magnetizion (int)
+3 !FLAG_SPIN (int) 0 non calcola spin- 1 solo spin- 2 spin e m.txt - 3 uso di thread - 4 uso di thread + no cout
+1 !FLAG_OUT_LAYER
+2 !Ncz_eq_1 number of layer FM 
+
+
+----COMMENT----
+FLAG_SPIN 
+0 --> the files oommf not are calcolate but only file m.txt;
+1 --> only the files oommf are calcolate;  
+2 --> as file oomf as file m.txt are create;
+3 --> the software use the concept of threads in cpu, in this flag are create the files oomf 
+4 --> the software use the concept of threads in cpu, in this flag are create the files oomf, but not is print the output in the screen;
+
+FLAG_OUT_LAYER
+0 --> no file output for each layer
+1 --> are calcolate the files di ouptut for each layer
+
+Ncz_eq_1
+number of magnetic layer
+
+----ENDCOMMENT----
+
+----NOTE----
+
+----ENDNOTE----
+

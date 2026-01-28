@@ -1,0 +1,46 @@
+//Field ext
+1			!FLAG_FIELD 0, 1(cost), 2(non unif), 3 (cost+ non unif) (int)
+5.00e+03		!field ext (mT)  
+90.0e0 			!H_theta
+10.0e0 			!H_phi
+ext_file.dat 		!nome file
+0 			! FLAG_FIELD_AC 1 si 0 no 2 localizzato
+0.0e0			! hx (mT)
+0.0e0			! hy (mT)
+0.0e0 			! hz (mT)
+0.0e9			!frequency
+0.0e0			! fi_x 
+0.0e0			! fi_y
+0.0e0			! fi_z
+shape_field.dat 	!nome file
+0			!FLAG_FIELD_PULSE 0(no), 1(si)
+4			!nfield (int)
+file_pulse.dat 		!nome file di due colonne
+180.0e0 		!H_theta_pulse
+0.0e0			!H_phi_pulse
+
+
+
+
+
+
+
+
+----COMMENT----
+FLAG_FIELD 
+0 --> field extern not is computed;
+1 --> field extern is scalar constant input field_ext value 	(mT); 	
+2 --> field extern is vector constant input from file;
+3 --> field extern is calculate as sum of value input constant 	and vector constant input from file;
+
+
+
+----ENDCOMMENT----
+
+
+----NOTE----
+
+
+
+----ENDNOTE----
+

@@ -1,0 +1,65 @@
+//Uniaxial anisotropy field
+0				! FLAG_UANI  0, 1, 2, 3, 4 (int)
+0.62e6				! (J/m^3) UNI_axial constant 
+UANI_file.dat ! nome del file 
+0.0				! vect_x
+0.0				! vect_y
+1.0				! vect_z
+ver_UNI_file.dat ! nome del file per i versori
+//Uniaxial anisotropy field second ord
+0				! FLAG_UANI2_ORD  0, 1, 2 (int)
+1.50e4				! (J/m^3) UNI_axial 2 order constant 
+UANI2_file.dat 			! nome del file
+//Biaxial anisotropy field
+0				! FLAG_UANI_bi  0, 1, 2 (int)
+0.0e5				! (J/m^3) Ktr constant  
+UANI_ktr_file.dat 			! nome del file 
+1.0; 0.0; 0.0 				! uk_x - uk_y - uk_z
+0.0; 1.0; 0.0				! vk_x - vk_y - vk_z
+//Cubic anisotropy field
+0				! FLAG_CUB  0, 1, 2 (int)
+5.50e5				! (J/m^3) CANI constant  
+CANI_file.dat 			! nome del file 
+1.0; 0.0; 0.0 				! uk_x - uk_y - uk_z
+0.0; 1.0; 0.0				! vk_x - vk_y - vk_z
+0.0; 0.0; 1.0				! wk_x - wk_y - wk_z
+
+
+
+FLAG_UANI
+0 --> Field anisotropy not computed;
+1 --> Field anisotropy scalar constant input UNI_axial value and constant UNI_axial vector value vect_x, vect_y, vect_z;
+2 --> Field anisotropy vector constant input from file and constant UNI_axial vector value vect_x, vect_y, vect_z;
+3 --> Field anisotropy scalar constant input UNI_axial value and vector UNI_axial input from file (3 col double);
+4 --> Field anisotropy vector constant input from file and vector UNI_axial input from file (3 col double);
+
+It is done the control of the verses ... if they are not normalized the code calculates them and proceeds;
+
+FLAG_UANI_BI
+0 --> Field anistropy bi_axial not computed;
+1 --> Field anistropy bi_axial scalar and constant versors;
+2 --> Field anistropy bi_axial vector constant input from file and constant versors;
+
+
+FLAG_UANI2_ORD
+0 --> Field anisotropy 2ord not computed;
+1 --> Field anisotropy scalar constant input UNI_axial_2ord value
+2 --> Field anisotropy vector constant input from file
+
+FLAG_CUB
+0 --> Field anisotropy cubic not computed;
+1 --> Field anisotropy cubic scalar constant input Ktr  value and constant versors value vk(3 comp), vk(3 comp), vk(3 comp);
+2 --> Field anisotropy vector constant input from file and constant versors value vk (3 comp), vk(3 comp), vk(3 comp);
+
+
+It is done the control of the verses ... if they are not normalized the code calculates them and proceeds;
+
+----ENDCOMMENT----
+
+
+----NOTE----
+Bisogna testare Anisotropy cubia e bi-axial
+
+----ENDNOTE----
+
+
