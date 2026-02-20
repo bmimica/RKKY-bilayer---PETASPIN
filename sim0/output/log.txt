@@ -1,0 +1,18 @@
+PetaSpin 3.0.0 Build  03-Oct-2024 
+ 
+nella vers 2.7.0 e' stato inserito l'uso dei threads in CPU, FLAG_SPIN 3/4
+ 
+nella vers 2.7.1 e' stato modificato il caso di Ms non uniforme - ma nn funziona
+ 
+nella vers 2.7.2 si è ripartiti dalla versione 2.7.0 e si è moltiplicato Ms non uniforme per lo shape
+ 
+nella vers 2.7.3 si è controllato con warning la condizione tale per cui lo shape è concorde con la Ms
+ 
+nella vers 2.8.0 si è controllato schede grafiche 
+ 
+nella vers 2.9.0 si è modificato Ms non unif in STT_SV 
+ 
+
+ The time of calcolate is ms: 732801
+
+ The time of calcolate is sec: 732.801
