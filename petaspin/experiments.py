@@ -1,9 +1,14 @@
 from simulations import *
+from pathlib import Path
+import numpy as np
+import pandas as pd
+
 
 class experiment:
-    def __init__(self, initial_sim_path):
-        self.initial = simulation(initial_sim_path)
-        self.experiment_folder = self.initial.sim_path.parent
+    def __init__(self, experiment_folder, master_name = 'sim0'):
+        self.experiment_folder = experiment_folder 
+        self.master_path = Path(self.experiment_folder) / master_name
+        self.data = None
   
 
     def run(self):
@@ -17,64 +22,74 @@ class experiment:
 
 class hysteresis(experiment):
 
-    def __init__(self, initial_sim_path, field_range):
+    def __init__(self, experiment_folder, master, label = 'hyst'):
 
-        super().__init__(initial_sim_path)
-        self.initial_sim = Path(initial_sim_path)
-        self.field_range = field_range
-        self.done = False
+        super().__init__(experiment_folder, master)
 
-    def run(self):
+        self.label = label
 
+    def run(self, field_range, require_convergence = False):
+
+        print('hysteresis running over field range :', field_range)
+        prev_sim_path =  self.master_path
+        for i, field in enumerate(field_range):
+            new_sim_name = f"{self.label}_H={field}"
+            new_sim_path = Path(self.experiment_folder) / new_sim_name
+
+            # creat new simulation() object and modifies field
+            new_sim = simulation.create_from_template(prev_sim_path, new_sim_path)
+            new_sim.modify_parameter('input_field.dat', 'field', field)
+            
+            # replaces the initial state with the previous output
+            m_last_path = prev_sim_path / "output" / "m_last.txt"
+            minicial_path = new_sim.spatial_setup['minicial.dat']
+
+            if m_last_path.exists():
+                # 2. Read, modify, and write in basically two lines
+                content = m_last_path.read_text()
+                minicial_path.write_text(content.replace(',', ' '))
+            else:
+                print(f"m_initial setup failed for {new_sim_name}")
+                break
+
+            if require_convergence:
+                return NotImplementedError(' need to put higher time simulation and create a stopping mechanism ...')
+
+            new_sim.run()
         self.done = True
-
-
-    def get(self, phi_deg=20, ms_file_name = 'MS_file.dat'):
-        if self.done
-        ms_file = self.mesh_files[ms_file_name]
-        h_m_data = []
         
-        for sim in 
-        
-        with open(ms_file, "r") as f:
-                ms = f.readlines()
-        
-        phi_rad = np.radians(phi_deg)
 
-        # Use r-string for regex to avoid escape sequence issues
-        folder_pattern = re.compile(r"sim_Hext([-+]?\d*\.?\d+(?:[eE][-+]?\d+)?)")
+    # gives magnetization as function of field
+    def get_H_M(self):
+        rows = {}
+        H_list, mH_list, dM_dt_list, mx_list, my_list, mz_list = [], [], [], [], [], []
+        for sim_path in self.experiment_folder.iterdir():
+            if sim_path.is_dir() and sim_path.name.startswith(self.label):
+                sim = simulation(sim_path)
+                output_t = sim.output_t()
 
-        for folder in root_path.iterdir():
-            if folder.is_dir():
-                match = folder_pattern.search(folder.name)
-                if match:
-                    hext_value = float(match.group(1))
-                    m_last_path = folder / "output" / "m_last.txt"
-                    
-                    if m_last_path.exists():
-                        # Efficient reading using numpy if the file is just numbers
-                        try:
-                            data = np.loadtxt(m_last_path)
-                            
-                            m_h_vals = []
-                            for i, row in enumerate(data):
-                                layer_idx = i // num_sites_per_layer
-                                ms = ms_array[layer_idx]
-                                
-                                mx, my, mz = row * ms
-                                
-                                # Matching your logic: only process non-zero vectors
-                                if not np.allclose([mx, my, mz], 0):
-                                    mh = mx * np.cos(phi_rad) + my * np.sin(phi_rad)
-                                    m_h_vals.append(mh)
-                            
-                            if m_h_vals:
-                                avg_mh = np.mean(m_h_vals)
-                                h_m_data.append({"Hext": hext_value, "MH": avg_mh})
-                                
-                        except Exception as e:
-                            print(f"Error processing {m_last_path}: {e}")
+                Hparams = sim.parameters['input_field.dat']
+                H = Hparams['field']
+                thH = Hparams['H_theta']
+                phiH = Hparams['H_phi']
 
-        # Return a sorted DataFrame for easy plotting
-        df = pd.DataFrame(h_m_data)
-        return df.sort_values("Hext").reset_index(drop=True)
+                # takes the last element of each component, that is last time step
+                mx = output_t['mx_mean'].iloc[-1]
+                my = output_t['my_mean'].iloc[-1]
+                mz = output_t['mz_mean'].iloc[-1]
+                dM_dt = output_t['dM_dt'].iloc[-1]
+                mH = mx*np.sin(thH)*np.cos(phiH) + my*np.sin(thH)*np.sin(phiH) + mz*np.cos(thH)
+
+                rows.append({
+                'H': H,
+                'mH': mH,
+                'mx': mx,
+                'my': my,
+                'mz': mz,
+                'dM_dt': dM_dt
+                })
+
+                output_H = pd.DataFrame(rows)
+
+        output_H['H'], output_H['M'], output_H['dM_dt'], output_H['mx'], output_H['my'], output_H['mz'] = H_list, mH_list, dM_dt_list, mx_list, my_list, mz_list
+        return output_H
